@@ -21,13 +21,13 @@ public class Shooting_Script : NetworkBehaviour {
 
         if (Input.GetKeyDown(KeyCode.Space) ||  // unity editor testing
             Input.GetButtonDown("Fire1"))       // google cardboard trigger
-            FireBullet();
+			CmdFireBullet();
     }
 
     [Command]   // makes this function a networking command
-    void FireBullet()
+	void CmdFireBullet()
     {
-
+		Debug.Log ("Fire!");
     }
 
 }
