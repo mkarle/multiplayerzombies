@@ -13,10 +13,20 @@ public class Health : NetworkBehaviour {
 
 	public bool destroyOnDeath;
 
+	private float timePoison = 0;
+
 	[SyncVar(hook = "OnChangeHealth")]
 	public int currentHealth = maxHealth;
 
 	public RectTransform healthBar;
+
+	void Update() {
+		if (timePoison > 1) {
+			currentHealth -= 2;
+			timePoison = 0;
+		}
+		timePoison += Time.deltaTime;
+	}
 
 	public void TakeDamage(int amount) {
 		if (!isServer) {
@@ -37,17 +47,26 @@ public class Health : NetworkBehaviour {
 	}
 
 	void OnChangeHealth (int currentHealth) {
-		healthBar.sizeDelta = new Vector2(currentHealth, healthBar.sizeDelta.y);
+		Debug.Log ("Health changed!");
+//		healthBar.sizeDelta = new Vector2(currentHealth, healthBar.sizeDelta.y);
 	}
 
+//	[Command]
+//	public void CmdRestoreHealth(int amount) {
+//		if (!isServer) {
+//			return;
+//		}
+//		currentHealth += amount;
+//	}
+
+//	[Command]
 	public void RestoreHealth(int amount) {
 		if (!isServer) {
 			return;
 		}
-
 		currentHealth += amount;
-		healthBar.sizeDelta = new Vector2(currentHealth, healthBar.sizeDelta.y);
 	}
+
 
 	[ClientRpc]
 	void RpcRespawn() {        

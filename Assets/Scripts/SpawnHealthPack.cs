@@ -13,15 +13,15 @@ public class SpawnHealthPack : NetworkBehaviour {
 			var spawnPosition = new Vector3(
 				Random.Range(-8.0f, 8.0f),
 				0.0f,
-				Random.Range(-8.0f, 8.0f));
+				Random.Range(-12.0f, 12.0f));
 
 			var spawnRotation = Quaternion.Euler( 
 				0.0f, 
 				Random.Range(0,180), 
 				0.0f);
 
-			var enemy = (GameObject) Instantiate(healthPack, spawnPosition, spawnRotation);
-			NetworkServer.Spawn(enemy);
+			var pack = (GameObject) Instantiate(healthPack, spawnPosition, spawnRotation);
+			NetworkServer.Spawn(pack);
 		}
 	}
 	// TODO: maybe instead of a fixed number of health packs, we want to spawn them slowly over time?
