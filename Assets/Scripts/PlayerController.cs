@@ -7,36 +7,20 @@ using System.Collections;
 // Remember to remove movement testing for deployment!!!
 public class PlayerController : NetworkBehaviour
 {
+	// Player camera, where the raycast that determines attack type emits from
+    private GameObject mHead;
 
-//    private GvrViewer gvrViewer;
-//    //private Camera mCam;
-//    private GameObject mHead;
-//
+	// Control whether meleeing or shooting occurs
     private bool canShoot;
-//    private bool canMelee;
+    private bool canMelee;
 
+	// Prefabs used to shoot or melee
     public GameObject bulletPrefab;
-    //public GameObject weaponPrefab;
+    public GameObject weaponPrefab;
 
+	// Where the weapons spawn from
     public Transform bulletSpawn;
-
-    void Start()
-    {
-        //		gvrViewer = GetComponentInChildren<GvrViewer> ();
-        //		gvrViewer.enabled = false;
-        //
-        //		mCam = GetComponentInChildren<Camera> ();
-        //		mCam.gameObject.SetActive (false);
-
-        // Currently setting everything inactive if not LocalPlayer
-//        gvrViewer = GetComponentInChildren<GvrViewer>();
-//        gvrViewer.gameObject.SetActive(false);
-//        
-
-        canShoot = true;
-		Debug.Log ("CONTROLLER");
-//        canMelee = true;
-    }
+	public Transform meleeSpawn;
 
     void Update()
     {
@@ -63,35 +47,35 @@ public class PlayerController : NetworkBehaviour
                 StartCoroutine(shoot());
             }
 
-//            if (canMelee)
-//            {
-//                StartCoroutine(melee());
-//            }
+            if (canMelee)
+            {
+                StartCoroutine(melee());
+            }
         }
     }
 
-//    // If the player is looking at a close enemy: melee, otherwise shoot
-//    void FixedUpdate()
-//    {
-//
-//        // Layer the enemies reside in
-//        int layerMask = 1 << 8;
-//        RaycastHit hit;
-//        if (mHead)
-//        {
-//            if (Physics.Raycast(mHead.transform.position, mHead.transform.forward, out hit, 2f, layerMask))
-//            {
-//                canShoot = false;
-//                canMelee = true;
-//
-//            }
-//            else
-//            {
-//                canShoot = true;
-//                canMelee = false;
-//            }
-//        }
-//    }
+    // If the player is looking at a close enemy: melee, otherwise shoot
+    void FixedUpdate()
+    {
+
+        // Layer the enemies reside in
+        int layerMask = 1 << 8;
+        RaycastHit hit;
+        if (mHead)
+        {
+            if (Physics.Raycast(mHead.transform.position, mHead.transform.forward, out hit, 2f, layerMask))
+            {
+                canShoot = false;
+                canMelee = true;
+
+            }
+            else
+            {
+                canShoot = true;
+                canMelee = false;
+            }
+        }
+    }
 
     // Coroutine for shooting
     public IEnumerator shoot()
@@ -103,15 +87,15 @@ public class PlayerController : NetworkBehaviour
         canShoot = true;
     }
 
-//    // Coroutine for meleeing
-//    public IEnumerator melee()
-//    {
-//        CmdMelee();
-//
-//        canMelee = false;
-//        yield return new WaitForSeconds(1f);
-//        canMelee = true;
-//    }
+    // Coroutine for meleeing
+    public IEnumerator melee()
+    {
+        CmdMelee();
+
+        canMelee = false;
+        yield return new WaitForSeconds(1f);
+        canMelee = true;
+    }
 
     // Fires a bullet from the gun tip
     [Command]
@@ -129,35 +113,25 @@ public class PlayerController : NetworkBehaviour
         Destroy(bullet, 2f);
     }
 
-    // Melees
-//    [Command]
-//    void CmdMelee()
-//    {
-//        GameObject weapon = (GameObject)Instantiate(
-//            weaponPrefab,
-//            this.transform.position,
-//            this.transform.rotation,
-//            this.transform);
-//
-//        NetworkServer.Spawn(weapon);
-//
-//        Destroy(weapon, .5f);
-//    }
+    // Instantiate the melee animation in front of the player
+    [Command]
+    void CmdMelee()
+    {
+        GameObject weapon = (GameObject)Instantiate(
+            weaponPrefab,
+			meleeSpawn.position,
+			meleeSpawn.rotation,
+            this.transform);
 
-//    // Initializes the LocalPlayer
-//    public override void OnStartLocalPlayer()
-//    {
-//
-//
-//        //		gvrViewer.enabled = true;
-//        //		mCam.gameObject.SetActive (true);
-//
-//        gvrViewer.gameObject.SetActive(true);
-//
-//        if (gvrViewer.gameObject.activeSelf)
-//        {
-//            mHead = gvrViewer.GetComponentInChildren<GvrHead>().gameObject;
-//        }
-//    }
+        NetworkServer.Spawn(weapon);
+
+        Destroy(weapon, .5f);
+    }
+
+    // Initializes the LocalPlayer
+    public override void OnStartLocalPlayer()
+    {
+		mHead = GetComponentInChildren<GvrHead>().gameObject;
+    }
 
 }
