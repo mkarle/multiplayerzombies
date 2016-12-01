@@ -369,8 +369,8 @@ public class GvrViewer : MonoBehaviour {
       instance = this;
     }
     if (instance != this) {
-      Debug.LogError("There must be only one GvrViewer object in a scene.");
-      UnityEngine.Object.DestroyImmediate(this);
+//      Debug.LogError("There must be only one GvrViewer object in a scene.");
+//      UnityEngine.Object.DestroyImmediate(this);
       return;
     }
 #if UNITY_IOS
