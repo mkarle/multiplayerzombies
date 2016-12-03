@@ -38,11 +38,15 @@ public class HealthPackManager : NetworkBehaviour {
 
 	// If we make the health pack a trigger, it may be spawned on top of other elements
 	void OnCollisionEnter(Collision other) {
-		NetworkServer.Destroy (this.gameObject);	// Destroy health pack
-		NetworkServer.Destroy (other.gameObject);	// Destroy bullet
-		foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player")) {
-			player.GetComponent<Health> ().RestoreHealth (restoreAmount);
-		}
+        if (other.gameObject.CompareTag("Bullet"))
+        {
+            NetworkServer.Destroy(this.gameObject); // Destroy health pack
+            NetworkServer.Destroy(other.gameObject);    // Destroy bullet
+            foreach (GameObject player in GameObject.FindGameObjectsWithTag("Player"))
+            {
+                player.GetComponent<Health>().RestoreHealth(restoreAmount);
+            }
+        }
 
 //		CmdOnCollision(other);
 

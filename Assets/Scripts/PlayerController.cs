@@ -134,4 +134,9 @@ public class PlayerController : NetworkBehaviour
 		mHead = GetComponentInChildren<GvrHead>().gameObject;
     }
 
+
+    public void Die()
+    {
+        Debug.Log("Died");
+    }
 }
