@@ -27,5 +27,6 @@ public class GameManager : NetworkBehaviour {
     public void AddScore()
     {
         Score++;
+        ScoreManager.score = Score;
     }
 }
