@@ -29,7 +29,7 @@ public class ZombieController : NetworkBehaviour {
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            other.gameObject.GetComponent<PlayerController>().Die();
+            other.gameObject.GetComponent<Health>().TakeDamage(20);
         }
         if (other.gameObject.CompareTag("Bullet"))
         {
