@@ -11,7 +11,7 @@ public class Health : NetworkBehaviour {
 
 	public const int maxHealth = 100;
 
-	public bool destroyOnDeath;
+	public bool destroyOnDeath = true;
 
 	private float timePoison = 0;
 
@@ -22,7 +22,7 @@ public class Health : NetworkBehaviour {
 
 	void Update() {
 		if (timePoison > 1) {
-			currentHealth -= 2;
+			//currentHealth -= 2;
 			timePoison = 0;
 		}
 		timePoison += Time.deltaTime;
@@ -36,7 +36,7 @@ public class Health : NetworkBehaviour {
 		currentHealth -= amount;
 		if (currentHealth <= 0) {
 			if (destroyOnDeath) {
-				Destroy(gameObject);
+                GetComponent<PlayerController>().Die();
 			} else {
 				currentHealth = maxHealth;
 

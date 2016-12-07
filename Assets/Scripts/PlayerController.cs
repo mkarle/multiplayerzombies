@@ -138,5 +138,18 @@ public class PlayerController : NetworkBehaviour
     public void Die()
     {
         Debug.Log("Died");
+        if (isLocalPlayer)
+        {
+            GameObject.Find("Camera").gameObject.SetActive(true);
+        }
+        NetworkServer.Destroy(gameObject);
+        GameObject.Find("GameManager").CheckGameOver();
+    }
+    public void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            GetComponent<Health>().TakeDamage(20);
+        }
     }
 }

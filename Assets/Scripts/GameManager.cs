@@ -29,4 +29,22 @@ public class GameManager : NetworkBehaviour {
         Score++;
         ScoreManager.score = Score;
     }
+
+    public void CheckGameOver()
+    {
+        var players = GameObject.FindGameObjectsWithTag("Player");
+        if(players.Length == 0)
+        {
+            EndGame();
+        }
+    }
+
+    public void EndGame()
+    {
+        var zombies = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach(var zombie in zombies)
+        {
+            NetworkServer.Destroy(zombie);
+        }
+    }
 }
