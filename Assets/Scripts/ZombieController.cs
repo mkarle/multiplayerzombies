@@ -33,7 +33,9 @@ public class ZombieController : NetworkBehaviour {
     private void UpdatePlayer()
     {
         var players = GameObject.FindGameObjectsWithTag("Player");
-        Player = players[Random.Range(0, players.Length)].transform;
+        if (players.Length != 0)
+            Player = players[Random.Range(0, players.Length)].transform;
+        else Player = null;
     }
 
     void OnCollisionEnter(Collision other)
