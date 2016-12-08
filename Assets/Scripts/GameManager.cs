@@ -7,9 +7,9 @@ public class GameManager : NetworkBehaviour {
     public GameObject GameCamera;
     public float SpawnTime = 3f;
     public Transform[] SpawnPoints;
-    public int Score;
+    public static int Score;
     public GameObject EndGameMenu;
-    public int numPlayers = 0;
+    public static int numPlayers = 0;
 	// Use this for initialization
 	void Start () {
         InvokeRepeating("SpawnEnemy", SpawnTime + 5, SpawnTime);
@@ -55,7 +55,7 @@ public class GameManager : NetworkBehaviour {
         var zombies = GameObject.FindGameObjectsWithTag("Enemy");
         foreach(var zombie in zombies)
         {
-            NetworkServer.Destroy(zombie);
+            Destroy(zombie);
         }
     }
 
