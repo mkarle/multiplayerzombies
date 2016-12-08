@@ -35,6 +35,7 @@ public class GameManager : NetworkBehaviour {
     public void PlayerDied()
     {
             GameCamera.SetActive(true);
+        GameCamera.tag = "MainCamera";
             numPlayers--;
             CheckGameOver();
             
