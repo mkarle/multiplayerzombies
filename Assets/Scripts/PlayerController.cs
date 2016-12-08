@@ -22,9 +22,11 @@ public class PlayerController : NetworkBehaviour
     public Transform bulletSpawn;
 	public Transform meleeSpawn;
 
+	public float collisionBuffer = 1.0f;
+	private float timeSinceCollision = 1.0f;
+
     void Update()
     {
-
         // If we are not the local player do not execute this script
         if (!isLocalPlayer)
         {
@@ -75,6 +77,7 @@ public class PlayerController : NetworkBehaviour
                 canMelee = false;
             }
         }
+		timeSinceCollision += Time.deltaTime;
     }
 
     // Coroutine for shooting
@@ -149,7 +152,10 @@ public class PlayerController : NetworkBehaviour
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
-            GetComponent<Health>().TakeDamage(20);
+			if (timeSinceCollision > collisionBuffer) {
+				GetComponent<Health>().TakeDamage(20);
+				timeSinceCollision = 0.0f;
+			}
         }
     }
 }
