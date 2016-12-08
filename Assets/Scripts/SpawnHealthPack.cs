@@ -12,7 +12,7 @@ public class SpawnHealthPack : NetworkBehaviour {
 		for (int i = 0; i < numberOfHealthPacks; i++) {
 			var spawnPosition = new Vector3(
 				Random.Range(-8.0f, 8.0f),
-				0.0f,
+				-1.0f,
 				Random.Range(-12.0f, 12.0f));
 
 			var spawnRotation = Quaternion.Euler( 
