@@ -15,6 +15,7 @@ public class HealthBarManager : MonoBehaviour {
 
     void Update()
     {
-        text.text = "Health: " + health;
+        if(HealthSettings.healthStatus)
+            text.text = "Health: " + health;
     }
 }
