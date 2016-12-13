@@ -34,7 +34,7 @@ public class Health : NetworkBehaviour {
 		}
 
 		currentHealth -= amount;
-        HealthBarManager.health = currentHealth;
+        
 		if (currentHealth <= 0) {
 			if (destroyOnDeath) {
                 GetComponent<PlayerController>().Die();
@@ -49,6 +49,7 @@ public class Health : NetworkBehaviour {
 
 	void OnChangeHealth (int currentHealth) {
 		Debug.Log ("Health changed!");
+        HealthBarManager.health = currentHealth;
 //		healthBar.sizeDelta = new Vector2(currentHealth, healthBar.sizeDelta.y);
 	}
 
@@ -66,7 +67,7 @@ public class Health : NetworkBehaviour {
 			return;
 		}
 		currentHealth += amount;
-        HealthBarManager.health = currentHealth;
+       
 	}
 
 
