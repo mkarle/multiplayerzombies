@@ -6,12 +6,14 @@ using UnityEngine.Networking.Types;
 using UnityEngine.Networking.Match;
 using System.Collections;
 using UnityEngine.VR;
-
+using System.Collections.Generic;
+using UnityEngine.Networking.NetworkSystem;
 namespace Prototype.NetworkLobby
 {
     public class LobbyManager : NetworkLobbyManager 
     {
         static short MsgKicked = MsgType.Highest + 1;
+		static short MsgDevice = MsgType.Highest + 2;
 
         static public LobbyManager s_Singleton;
 
@@ -57,6 +59,8 @@ namespace Prototype.NetworkLobby
 
         protected LobbyHook _lobbyHooks;
 
+		public Dictionary<int, string> vrmodels = new Dictionary<int, string>();
+
         void Start()
         {
             s_Singleton = this;
@@ -68,6 +72,8 @@ namespace Prototype.NetworkLobby
             DontDestroyOnLoad(gameObject);
 
             SetServerInfo("Offline", "None");
+
+			NetworkServer.RegisterHandler (MsgDevice, AddDeviceType);
         }
 
         public override void OnLobbyClientSceneChanged(NetworkConnection conn)
@@ -226,13 +232,17 @@ namespace Prototype.NetworkLobby
 
 
 
-
         public void KickedMessageHandler(NetworkMessage netMsg)
         {
             infoPanel.Display("Kicked by Server", "Close", null);
             netMsg.conn.Disconnect();
         }
 
+		public void AddDeviceType(NetworkMessage netMsg){
+			var msg = netMsg.ReadMessage<StringMessage> ();
+			Debug.Log (msg.value);
+			vrmodels.Add (netMsg.conn.connectionId, msg.value);
+		}
         //===================
 
         public override void OnStartHost()
@@ -406,6 +416,7 @@ namespace Prototype.NetworkLobby
                 backDelegate = StopClientClbk;
                 SetServerInfo("Client", networkAddress);
             }
+
         }
 
 
@@ -421,18 +432,25 @@ namespace Prototype.NetworkLobby
             infoPanel.Display("Cient error : " + (errorCode == 6 ? "timeout" : errorCode.ToString()), "Close", null);
         }
 
-       /* public override GameObject OnLobbyServerCreateGamePlayer(NetworkConnection conn, short playerControllerId)
+
+
+
+		public override void OnLobbyClientConnect (NetworkConnection conn)
+		{
+			base.OnLobbyClientConnect (conn);
+			var msg = new StringMessage (VRDevice.model);
+			conn.Send(MsgDevice,  msg);
+		}
+
+        public override GameObject OnLobbyServerCreateGamePlayer(NetworkConnection conn, short playerControllerId)
         {
             Debug.Log("OnLobbyServerCreateGamePlayer");
-            if (conn.address != networkAddress)
-            {
-                Debug.Log("conn address!= networkAddress");
-                if (VRDevice.model.Contains("Vive"))
+				if (vrmodels[conn.connectionId].Contains("Vive"))
                 {
                     Debug.Log("Vive Player");
                     gamePlayerPrefab = VivePlayer;
                 }
-                else if (VRDevice.model.Contains("Oculus Rift"))
+				else if (vrmodels[conn.connectionId].Contains("Oculus Rift"))
                 {
                     Debug.Log("Rift Player");
                     gamePlayerPrefab = RiftPlayer;
@@ -441,15 +459,15 @@ namespace Prototype.NetworkLobby
                 else
                 {
                     Debug.Log("Cardboard Player");
-                    //gamePlayerPrefab = CardboardPlayer;
+                    gamePlayerPrefab = CardboardPlayer;
 
                     
                 }
-            }
+            
 
             //GameObject player = (GameObject)Instantiate(gamePlayerPrefab, startPositions[0].position, Quaternion.identity);
             //ClientScene.RegisterPrefab(gamePlayerPrefab);
             return base.OnLobbyServerCreateGamePlayer(conn, playerControllerId);
-        }*/
+        }
     }
 }
