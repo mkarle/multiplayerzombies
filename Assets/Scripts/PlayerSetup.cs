@@ -19,7 +19,6 @@ public class PlayerSetup : NetworkBehaviour
 		} else 
 		{
             GameManager.numPlayers++;
-            Camera.main.tag = "poop";
 			Camera.main.gameObject.SetActive (false);
 			for (int i = 0; i < nonLocalComponentsToDisable.Length; i++) {
 				nonLocalComponentsToDisable [i].enabled = true;

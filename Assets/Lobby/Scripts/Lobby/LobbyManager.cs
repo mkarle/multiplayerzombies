@@ -5,7 +5,7 @@ using UnityEngine.Networking;
 using UnityEngine.Networking.Types;
 using UnityEngine.Networking.Match;
 using System.Collections;
-
+using UnityEngine.VR;
 
 namespace Prototype.NetworkLobby
 {
@@ -23,6 +23,10 @@ namespace Prototype.NetworkLobby
         [Space]
         [Header("UI Reference")]
         public LobbyTopPanel topPanel;
+
+        public GameObject VivePlayer;
+        public GameObject RiftPlayer;
+        public GameObject CardboardPlayer;
 
         public RectTransform mainMenuPanel;
         public RectTransform lobbyPanel;
@@ -416,5 +420,36 @@ namespace Prototype.NetworkLobby
             ChangeTo(mainMenuPanel);
             infoPanel.Display("Cient error : " + (errorCode == 6 ? "timeout" : errorCode.ToString()), "Close", null);
         }
+
+       /* public override GameObject OnLobbyServerCreateGamePlayer(NetworkConnection conn, short playerControllerId)
+        {
+            Debug.Log("OnLobbyServerCreateGamePlayer");
+            if (conn.address != networkAddress)
+            {
+                Debug.Log("conn address!= networkAddress");
+                if (VRDevice.model.Contains("Vive"))
+                {
+                    Debug.Log("Vive Player");
+                    gamePlayerPrefab = VivePlayer;
+                }
+                else if (VRDevice.model.Contains("Oculus Rift"))
+                {
+                    Debug.Log("Rift Player");
+                    gamePlayerPrefab = RiftPlayer;
+                    
+                }
+                else
+                {
+                    Debug.Log("Cardboard Player");
+                    //gamePlayerPrefab = CardboardPlayer;
+
+                    
+                }
+            }
+
+            //GameObject player = (GameObject)Instantiate(gamePlayerPrefab, startPositions[0].position, Quaternion.identity);
+            //ClientScene.RegisterPrefab(gamePlayerPrefab);
+            return base.OnLobbyServerCreateGamePlayer(conn, playerControllerId);
+        }*/
     }
 }
