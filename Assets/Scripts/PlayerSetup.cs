@@ -11,7 +11,9 @@ public class PlayerSetup : NetworkBehaviour
 	// Use this for initialization
 	void Start () 
 	{
-		
+		if (isLocalPlayer)
+			GameManager.numPlayers++;
+		Debug.Log (GameManager.numPlayers);
 	}
 	void Update (){
 		if (!disabled) {
@@ -28,7 +30,6 @@ public class PlayerSetup : NetworkBehaviour
 				disabled = true;
 
 			} else {
-				GameManager.numPlayers++;
 				Camera.main.gameObject.SetActive (false);
 				for (int i = 0; i < nonLocalComponentsToDisable.Length; i++) {
 					if (nonLocalComponentsToDisable [i] == null) {

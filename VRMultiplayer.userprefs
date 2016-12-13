@@ -1,0 +1,14 @@
+﻿<Properties StartupItem="Assembly-CSharp.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Lobby\Scripts\Lobby\LobbyManager.cs">
+    <Files>
+      <File FileName="Assets\Scripts\VivePlayerController.cs" Line="8" Column="18" />
+      <File FileName="Assets\Scripts\WandController.cs" Line="25" Column="8" />
+      <File FileName="Assets\Lobby\Scripts\Lobby\LobbyManager.cs" Line="444" Column="21" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
