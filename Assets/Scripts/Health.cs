@@ -37,7 +37,7 @@ public class Health : NetworkBehaviour {
         
 		if (currentHealth <= 0) {
 			if (destroyOnDeath) {
-                GetComponent<PlayerController>().Die();
+				GetComponent<RiftPlayerController>().Die();
 			} else {
 				currentHealth = maxHealth;
 
