@@ -51,7 +51,7 @@ public class RiftPlayerController : NetworkBehaviour
         // End testing movement
 
         // Mouseclick
-		if (Input.GetMouseButtonDown(0) || Input.GetKeyDown("space"))
+		if (Input.GetButtonDown("Fire1") || Input.GetButtonDown("Xbox360_A") || Input.GetButtonDown("Xbox360_Right_Trigger"))
         {
 			Debug.Log ("Attack");
 			if (canShoot && shootRange)
@@ -76,7 +76,7 @@ public class RiftPlayerController : NetworkBehaviour
         RaycastHit hit;
         if (mHead)
         {
-            if (Physics.Raycast(mHead.transform.position, mHead.transform.forward, out hit, 2f, layerMask))
+            if (Physics.Raycast(mHead.transform.position, mHead.transform.forward, out hit, 3f, layerMask))
             {
                 shootRange = false;
                 meleeRange = true;

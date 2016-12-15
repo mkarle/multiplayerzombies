@@ -13,5 +13,9 @@ public class testScipt : MonoBehaviour {
 		if (Input.GetButtonDown ("Xbox360_A")) {
 			Debug.Log ("XBOX 360 A BUTTON PRESSED");
 		}
+
+		if (Input.GetButtonDown("Xbox360_Right_Trigger")) {
+			Debug.Log("XBOX 360 RIGHT TRIGGER PRESSED");
+		}
 	}
 }

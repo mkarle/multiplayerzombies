@@ -20,6 +20,11 @@ public class Health : NetworkBehaviour {
 
 	public RectTransform healthBar;
 
+
+	public void Start(){
+		currentHealth = maxHealth;
+		destroyOnDeath = true;
+	}
 	void Update() {
 		if (timePoison > 1) {
 			//currentHealth -= 2;
@@ -28,16 +33,16 @@ public class Health : NetworkBehaviour {
 		timePoison += Time.deltaTime;
 	}
 
-	public void TakeDamage(int amount) {
+	public virtual void TakeDamage(int amount) {
 		if (!isServer) {
 			return;
 		}
 
 		currentHealth -= amount;
-        
+
 		if (currentHealth <= 0) {
 			if (destroyOnDeath) {
-				GetComponent<RiftPlayerController>().Die();
+				GetComponent<PlayerController>().Die();
 			} else {
 				currentHealth = maxHealth;
 
@@ -49,30 +54,30 @@ public class Health : NetworkBehaviour {
 
 	void OnChangeHealth (int currentHealth) {
 		Debug.Log ("Health changed!");
-        HealthBarManager.health = currentHealth;
-//		healthBar.sizeDelta = new Vector2(currentHealth, healthBar.sizeDelta.y);
+		HealthBarManager.health = currentHealth;
+		//		healthBar.sizeDelta = new Vector2(currentHealth, healthBar.sizeDelta.y);
 	}
 
-//	[Command]
-//	public void CmdRestoreHealth(int amount) {
-//		if (!isServer) {
-//			return;
-//		}
-//		currentHealth += amount;
-//	}
+	//	[Command]
+	//	public void CmdRestoreHealth(int amount) {
+	//		if (!isServer) {
+	//			return;
+	//		}
+	//		currentHealth += amount;
+	//	}
 
-//	[Command]
+	//	[Command]
 	public void RestoreHealth(int amount) {
 		if (!isServer) {
 			return;
 		}
 		currentHealth += amount;
-       
+
 	}
 
 
 	[ClientRpc]
-	void RpcRespawn() {        
+	public void RpcRespawn() {        
 		if (isLocalPlayer) {
 			// Set the player’s position to origin
 			transform.position = Vector3.zero;

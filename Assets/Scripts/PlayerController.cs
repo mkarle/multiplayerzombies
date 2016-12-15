@@ -42,7 +42,7 @@ public class PlayerController : NetworkBehaviour
         // End testing movement
 
         // Google cardboard trigger
-        if (Input.GetButtonDown("Fire1"))
+		if (Input.GetButtonDown("Fire1") || Input.GetButtonDown("Xbox360_A") || Input.GetButtonDown("Xbox360_Right_Trigger"))
         {
             if (canShoot)
             {
