@@ -6,41 +6,19 @@ public class PlayerSetup : NetworkBehaviour
 {
 
 	[SerializeField]
-	Behaviour[] nonLocalComponentsToDisable;
+	public Behaviour[] localComponentsToEnable;
 	bool disabled = false;
 	// Use this for initialization
 	void Start () 
 	{
-		if (isLocalPlayer)
-			GameManager.numPlayers++;
-		Debug.Log (GameManager.numPlayers);
-	}
-	void Update (){
-		if (!disabled) {
-			if (!isLocalPlayer) {
-				for (int i = 0; i < nonLocalComponentsToDisable.Length; i++) {
-					if (nonLocalComponentsToDisable [i] == null) {
-						
-						disabled = false;
-						break;
-					}
-					else
-						nonLocalComponentsToDisable [i].enabled = false;
-				}
-				disabled = true;
+		if (isLocalPlayer) {
 
-			} else {
-				Camera.main.gameObject.SetActive (false);
-				for (int i = 0; i < nonLocalComponentsToDisable.Length; i++) {
-					if (nonLocalComponentsToDisable [i] == null) {
-						disabled = false;
-						break;
-					}
-					else
-						nonLocalComponentsToDisable [i].enabled = true;
-				}
-				disabled = true;
+			Camera.main.gameObject.SetActive (false);
+			GameManager.numPlayers++;
+			foreach (Behaviour comp in localComponentsToEnable) {
+				comp.enabled = true;
 			}
 		}
 	}
+
 }
