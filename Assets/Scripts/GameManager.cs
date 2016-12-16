@@ -10,6 +10,8 @@ public class GameManager : NetworkBehaviour {
     public Transform[] SpawnPoints;
     public static int Score;
     public GameObject EndGameMenu;
+
+	[SyncVar]
     public static int numPlayers = 0;
 
 	public GameObject[] SceneCameras = new GameObject[3];
@@ -37,10 +39,6 @@ public class GameManager : NetworkBehaviour {
 
     public void AddScore()
     {
-		if (!isServer) {
-			return;
-		}
-
         Score++;
         ScoreManager.score = Score;
     }
