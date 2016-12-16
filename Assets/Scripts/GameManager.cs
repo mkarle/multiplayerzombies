@@ -12,6 +12,9 @@ public class GameManager : NetworkBehaviour {
     public static int numPlayers = 0;
 	// Use this for initialization
 	void Start () {
+		if (!isServer) {
+			return;
+		}
         InvokeRepeating("SpawnEnemy", SpawnTime + 5, SpawnTime);
 	}
 	
