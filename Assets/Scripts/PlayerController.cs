@@ -144,7 +144,7 @@ public class PlayerController : NetworkBehaviour
 
 		if (isLocalPlayer)
 		{
-			GameObject.Find("GameManager").GetComponent<GameManager>().PlayerDied(0);
+			GameObject.Find("GameManager").GetComponent<GameManager>().CmdPlayerDied(0);
 		}
 
 		gameObject.SetActive (false);

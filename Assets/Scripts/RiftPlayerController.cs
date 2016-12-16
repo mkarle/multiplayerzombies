@@ -155,7 +155,7 @@ public class RiftPlayerController : NetworkBehaviour
 
         if (isLocalPlayer)
         {
-            GameObject.Find("GameManager").GetComponent<GameManager>().PlayerDied(1);
+            GameObject.Find("GameManager").GetComponent<GameManager>().CmdPlayerDied(1);
         }
 
 		gameObject.SetActive (false);
