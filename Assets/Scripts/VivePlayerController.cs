@@ -152,7 +152,7 @@ public class VivePlayerController : NetworkBehaviour
 
         if (isLocalPlayer)
         {
-            GameObject.Find("GameManager").GetComponent<GameManager>().PlayerDied(2);
+			GameObject.Find("GameManager").GetComponent<GameManager>().PlayerDied(2);
         }
     }
 
