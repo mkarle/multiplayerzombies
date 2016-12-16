@@ -41,7 +41,7 @@ public class GameManager : NetworkBehaviour {
         Score++;
         ScoreManager.score = Score;
     }
-
+		
 	public void PlayerDied(int device)
     {	
 		if (device == 0) {
@@ -55,7 +55,12 @@ public class GameManager : NetworkBehaviour {
 		}
 
         numPlayers--;
-        CheckGameOver();         
+
+		EndGameMenu.SetActive (true);
+		EndGameMenu.GetComponentInChildren<Text> ().text = "GAME OVER\nSCORE:" + ScoreManager.score;
+
+		Debug.Log ("GameOver");
+        //CheckGameOver();         
     }
 
     public void CheckGameOver()

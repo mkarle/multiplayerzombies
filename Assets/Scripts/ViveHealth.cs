@@ -18,7 +18,7 @@ public class ViveHealth : Health {
 
 		if (currentHealth <= 0) {
 			if (destroyOnDeath) {
-				GetComponent<VivePlayerController>().RpcDie();
+				GetComponent<VivePlayerController>().Die();
 			} else {
 				currentHealth = maxHealth;
 

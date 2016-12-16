@@ -147,8 +147,7 @@ public class RiftPlayerController : NetworkBehaviour
     {
 		mHead = GetComponentInChildren<Camera>().gameObject;
     }
-
-
+		
     public void Die()
     {
         Debug.Log("Died");
