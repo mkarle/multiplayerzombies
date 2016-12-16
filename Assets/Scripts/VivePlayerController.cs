@@ -143,8 +143,8 @@ public class VivePlayerController : NetworkBehaviour
 		mHead = GetComponentInChildren<Camera>().gameObject;
     }
 
-
-    public void Die()
+	[ClientRpc]
+    public void RpcDie()
     {
         Debug.Log("Died");
 
