@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class HealthBarManager : MonoBehaviour {
 
-    public static int health;
+    public int health;
     Text text;
 
     void Awake()

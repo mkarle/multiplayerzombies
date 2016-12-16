@@ -18,9 +18,10 @@ public class Health : NetworkBehaviour {
 	[SyncVar(hook = "OnChangeHealth")]
 	public int currentHealth = maxHealth;
 
-	public RectTransform healthBar;
+	private HealthBarManager mHealthBar;
 
 	public void Start(){
+		mHealthBar = GetComponentInChildren<HealthBarManager> ();
 		currentHealth = maxHealth;
 		destroyOnDeath = true;
 	}
@@ -53,9 +54,10 @@ public class Health : NetworkBehaviour {
 	}
 
 	void OnChangeHealth (int currentHealth) {
-		Debug.Log ("Health changed!");
-		HealthBarManager.health = currentHealth;
+		//Debug.Log ("Health changed!");
+		//HealthBarManager.health = currentHealth;
 		//		healthBar.sizeDelta = new Vector2(currentHealth, healthBar.sizeDelta.y);
+		mHealthBar.health = currentHealth;
 	}
 
 	//	[Command]
