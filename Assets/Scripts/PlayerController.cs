@@ -142,11 +142,12 @@ public class PlayerController : NetworkBehaviour
     {
         Debug.Log("Died");
 
-        Destroy(gameObject);
-        if (isLocalPlayer)
-        {
-            GameObject.Find("GameManager").GetComponent<GameManager>().PlayerDied();
-        }
+		if (isLocalPlayer)
+		{
+			GameObject.Find("GameManager").GetComponent<GameManager>().PlayerDied(0);
+		}
+
+		gameObject.SetActive (false);
     }
     public void OnCollisionEnter(Collision other)
     {

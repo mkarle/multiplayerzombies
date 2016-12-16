@@ -13,7 +13,7 @@ public class PlayerSetup : NetworkBehaviour
 	{
 		if (isLocalPlayer) {
 
-			Camera.main.gameObject.SetActive (false);
+			//Camera.main.gameObject.SetActive (false);
 			GameManager.numPlayers++;
 			foreach (Behaviour comp in localComponentsToEnable) {
 				comp.enabled = true;

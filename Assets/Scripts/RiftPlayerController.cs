@@ -153,11 +153,12 @@ public class RiftPlayerController : NetworkBehaviour
     {
         Debug.Log("Died");
 
-        Destroy(gameObject);
         if (isLocalPlayer)
         {
-            GameObject.Find("GameManager").GetComponent<GameManager>().PlayerDied();
+            GameObject.Find("GameManager").GetComponent<GameManager>().PlayerDied(1);
         }
+
+		gameObject.SetActive (false);
     }
 
     public void OnCollisionEnter(Collision other)

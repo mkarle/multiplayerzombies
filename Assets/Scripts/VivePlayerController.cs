@@ -148,11 +148,12 @@ public class VivePlayerController : NetworkBehaviour
     {
         Debug.Log("Died");
 
-        Destroy(gameObject);
         if (isLocalPlayer)
         {
-            GameObject.Find("GameManager").GetComponent<GameManager>().PlayerDied();
+            GameObject.Find("GameManager").GetComponent<GameManager>().PlayerDied(2);
         }
+
+		gameObject.SetActive (false);
     }
 
     public void OnCollisionEnter(Collision other)

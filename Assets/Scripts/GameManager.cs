@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.Networking;
+using UnityEngine.UI;
 
 public class GameManager : NetworkBehaviour {
     public GameObject Enemy;
@@ -10,11 +11,15 @@ public class GameManager : NetworkBehaviour {
     public static int Score;
     public GameObject EndGameMenu;
     public static int numPlayers = 0;
+
+	public GameObject[] SceneCameras = new GameObject[3];
+
 	// Use this for initialization
 	void Start () {
 		if (!isServer) {
 			return;
 		}
+
         InvokeRepeating("SpawnEnemy", SpawnTime + 5, SpawnTime);
 	}
 	
@@ -32,17 +37,30 @@ public class GameManager : NetworkBehaviour {
 
     public void AddScore()
     {
+		if (!isServer) {
+			return;
+		}
+
         Score++;
         ScoreManager.score = Score;
     }
-    public void PlayerDied()
-    {
-            GameCamera.SetActive(true);
-        GameCamera.tag = "MainCamera";
-            numPlayers--;
-            CheckGameOver();
-            
+
+	public void PlayerDied(int device)
+    {	
+		if (device == 0) {
+			SceneCameras [0].SetActive (true);
+
+		} else if (device == 1) {
+			SceneCameras [1].SetActive (true);
+
+		} else {
+			SceneCameras [2].SetActive (true);
+		}
+
+        numPlayers--;
+        CheckGameOver();         
     }
+
     public void CheckGameOver()
     {
        
@@ -53,14 +71,14 @@ public class GameManager : NetworkBehaviour {
     }
 
     public void EndGame()
-    {
-        EndGameMenu.SetActive(true);
-        Debug.Log("GameOver");
-        var zombies = GameObject.FindGameObjectsWithTag("Enemy");
-        foreach(var zombie in zombies)
-        {
-            Destroy(zombie);
-        }
-    }
+	{
+		EndGameMenu.SetActive (true);
+		EndGameMenu.GetComponentInChildren<Text> ().text = "GAME OVER\nSCORE:" + ScoreManager.score;
 
+		Debug.Log ("GameOver");
+		var zombies = GameObject.FindGameObjectsWithTag ("Enemy");
+		foreach (var zombie in zombies) {
+			Destroy (zombie);
+		}
+	}
 }
