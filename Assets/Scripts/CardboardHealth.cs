@@ -9,8 +9,6 @@ using System.Collections;
 
 public class CardboardHealth : Health {
 
-
-
 	public override void TakeDamage(int amount) {
 		if (!isServer) {
 			return;

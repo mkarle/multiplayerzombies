@@ -1,4 +1,4 @@
 sceneSetups:
-- path: C:/Users/Robert/Desktop/GeoffRen/OculusMultiplayer/Assets/riftmenu.unity
+- path: Assets/riftmenu.unity
   isLoaded: 1
   isActive: 1

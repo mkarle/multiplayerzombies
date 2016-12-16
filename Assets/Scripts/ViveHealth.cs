@@ -9,7 +9,6 @@ using System.Collections;
 
 public class ViveHealth : Health {
 
-
 	public override void TakeDamage(int amount) {
 		if (!isServer) {
 			return;

@@ -20,11 +20,11 @@ public class Health : NetworkBehaviour {
 
 	public RectTransform healthBar;
 
-
 	public void Start(){
 		currentHealth = maxHealth;
 		destroyOnDeath = true;
 	}
+
 	void Update() {
 		if (timePoison > 1) {
 			//currentHealth -= 2;
@@ -74,7 +74,6 @@ public class Health : NetworkBehaviour {
 		currentHealth += amount;
 
 	}
-
 
 	[ClientRpc]
 	public void RpcRespawn() {        
