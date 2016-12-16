@@ -11,7 +11,6 @@ public class GameManager : NetworkBehaviour {
     public static int Score;
     public GameObject EndGameMenu;
 
-	[SyncVar]
     public static int numPlayers = 0;
 
 	public GameObject[] SceneCameras = new GameObject[3];
@@ -62,7 +61,7 @@ public class GameManager : NetworkBehaviour {
     public void CheckGameOver()
     {
        
-        if (numPlayers <= 0)
+		if (!GameObject.FindGameObjectWithTag("Player"))
         {
             EndGame();
         }
