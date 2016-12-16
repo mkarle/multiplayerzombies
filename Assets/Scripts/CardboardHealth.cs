@@ -18,7 +18,7 @@ public class CardboardHealth : Health {
         
 		if (currentHealth <= 0) {
 			if (destroyOnDeath) {
-				GetComponent<PlayerController>().Die();
+				GetComponent<PlayerController>().CmdDie();
 			} else {
 				currentHealth = maxHealth;
 
