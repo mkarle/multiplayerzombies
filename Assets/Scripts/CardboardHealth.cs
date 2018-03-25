@@ -1,4 +1,4 @@
-﻿// Modified from https://unity3d.com/learn/tutorials/topics/multiplayer-networking/networking-player-health?playlist=29690
+﻿a// Modified from https://unity3d.com/learn/tutorials/topics/multiplayer-networking/networking-player-health?playlist=29690
 // Health script manages both players and enemies
 // Check destroyOnDeath for enemies
 
@@ -8,6 +8,8 @@ using UnityEngine.Networking;
 using System.Collections;
 
 public class CardboardHealth : Health {
+
+
 
 	public override void TakeDamage(int amount) {
 		if (!isServer) {
